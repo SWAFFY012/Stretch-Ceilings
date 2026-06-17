@@ -5,3 +5,4 @@ Thumbs.db
 .vercel
 node_modules
 
+# Local deployment metadata stays out of the repository.
