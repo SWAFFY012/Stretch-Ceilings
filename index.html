@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LANDOS - натяжные потолки под ключ: мгновенный калькулятор, фактуры и цвета, фото работ, расчет света, сроки монтажа, акция и заявка на бесплатный замер.">
+<title>LANDOS - Натяжные потолки под ключ за 1 день</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231765d8'/%3E%3Ctext x='50' y='65' font-size='46' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 10.8a17.2 17.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1.1l-2.2 2.2Z"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 4h6M9 12h.1M12 12h.1M15 12h.1M9 16h.1M12 16h.1M15 16h.1"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Zm-7 9 7 4 7-4M5 16l7 4 7-4"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8 14a6 6 0 1 1 8 0c-.9.8-1 1.7-1 2H9c0-.3-.1-1.2-1-2Z"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M4 17 17 4l3 3L7 20l-3-3Zm4-4 2 2m1-5 2 2m1-5 2 2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v5l3 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6l8-3Zm-3 9 2 2 4-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+</svg>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="logo" href="#top" aria-label="LANDOS">
+      <span class="logo__mark">L</span>
+      <span class="logo__text">LANDOS<small>натяжные потолки</small></span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#calc">Калькулятор</a>
+      <a href="#textures">Фактуры и цвета</a>
+      <a href="#works">Наши работы</a>
+      <a href="#light">Освещение</a>
+      <a href="#timing">Монтаж</a>
+      <a href="#promo">Акция</a>
+      <a href="#form">Контакты</a>
+    </nav>
+
+    <div class="header__actions">
+      <a class="phone" href="tel:+78005553535">
+        <svg class="icon"><use href="#i-phone"></use></svg>
+        <span>8 800 555-35-35</span>
+      </a>
+      <a class="btn btn--primary btn--sm header__cta" href="#form">Заказать замер</a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <a href="#calc">Калькулятор</a>
+    <a href="#textures">Фактуры и цвета</a>
+    <a href="#works">Наши работы</a>
+    <a href="#light">Освещение</a>
+    <a href="#timing">Монтаж</a>
+    <a href="#promo">Акция</a>
+    <a href="#form">Заявка на замер</a>
+    <a href="tel:+78005553535" class="mobile-nav__phone">8 800 555-35-35</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero__media" aria-hidden="true"></div>
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow">Замер сегодня. Монтаж от 1 дня</span>
+        <h1>Натяжные потолки под ключ за 1 день</h1>
+        <p>Быстрый и аккуратный монтаж без пыли. Подберем фактуру, световые линии и точечные светильники под ваш интерьер, а стоимость посчитаем сразу на сайте.</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="#calc">Рассчитать стоимость</a>
+          <a class="btn btn--light btn--lg" href="#form">Вызвать замерщика</a>
+        </div>
+
+        <div class="hero__metrics" aria-label="Ключевые преимущества">
+          <div class="metric"><svg class="icon"><use href="#i-shield"></use></svg><b>5 лет</b><span>гарантии</span></div>
+          <div class="metric"><svg class="icon"><use href="#i-clock"></use></svg><b>1 день</b><span>монтаж</span></div>
+          <div class="metric"><svg class="icon"><use href="#i-check"></use></svg><b>Без пыли</b><span>и мусора</span></div>
+        </div>
+      </div>
+
+      <aside class="quick-card" aria-label="Быстрый расчет стоимости">
+        <h2>Быстрый расчет стоимости</h2>
+        <label class="quick-field">
+          <span><svg class="icon"><use href="#i-ruler"></use></svg>Площадь помещения</span>
+          <input id="quickArea" type="number" min="5" max="120" value="18" inputmode="numeric">
+        </label>
+        <label class="quick-field">
+          <span><svg class="icon"><use href="#i-layers"></use></svg>Фактура</span>
+          <select id="quickTexture">
+            <option value="650">Матовая</option>
+            <option value="850">Сатиновая</option>
+            <option value="950">Глянцевая</option>
+            <option value="1450">Тканевая</option>
+          </select>
+        </label>
+        <label class="quick-field">
+          <span><svg class="icon"><use href="#i-bulb"></use></svg>Освещение</span>
+          <select id="quickLight">
+            <option value="0">Без освещения</option>
+            <option value="350">Точечные светильники</option>
+            <option value="650">Световые линии</option>
+            <option value="900">Люстра и подсветка</option>
+          </select>
+        </label>
+        <div class="quick-total">
+          <span>Предварительно</span>
+          <b id="quickTotal">21 600 ₽</b>
+          <small id="quickHint">за комнату 18 м²</small>
+        </div>
+        <a class="btn btn--primary btn--block" id="quickApply" href="#calc">Получить расчет</a>
+        <p>Это займет меньше 1 минуты</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="feature-strip" aria-label="Преимущества">
+    <div class="container feature-strip__inner">
+      <div class="feature"><svg class="icon"><use href="#i-calc"></use></svg><b>Мгновенный расчет</b><span>Узнайте стоимость потолка за 1 минуту</span></div>
+      <div class="feature"><svg class="icon"><use href="#i-layers"></use></svg><b>Более 200 фактур</b><span>Матовые, сатиновые, глянцевые и тканевые полотна</span></div>
+      <div class="feature"><svg class="icon"><use href="#i-bulb"></use></svg><b>Подбор освещения</b><span>Рассчитаем свет и подберем оборудование</span></div>
+      <div class="feature"><svg class="icon"><use href="#i-ruler"></use></svg><b>Бесплатный замер</b><span>Выезд замерщика в удобное время</span></div>
+    </div>
+  </section>
+
+  <section class="section calculator" id="calc">
+    <div class="container">
+      <div class="section__head section__head--split">
+        <div>
+          <span class="eyebrow">Мгновенный калькулятор</span>
+          <h2>Посчитайте потолок с учетом фактуры, цвета и света</h2>
+        </div>
+        <p>Двигайте площадь и выбирайте опции. Цена пересчитывается сразу, а точная смета фиксируется после замера.</p>
+      </div>
+
+      <div class="calc">
+        <div class="calc__controls">
+          <div class="calc__field">
+            <div class="calc__field-head">
+              <label for="area">Площадь помещения</label>
+              <output class="calc__value" id="areaOut">18 м²</output>
+            </div>
+            <input type="range" id="area" min="5" max="120" step="1" value="18">
+            <div class="calc__scale"><span>5 м²</span><span>60 м²</span><span>120 м²</span></div>
+          </div>
+
+          <div class="calc__field">
+            <span class="calc__field-head"><label>Фактура полотна</label></span>
+            <div class="calc__options" id="textureOpts" role="radiogroup" aria-label="Фактура">
+              <button type="button" class="opt is-active" data-price="650" data-name="Матовое полотно" role="radio" aria-checked="true">Матовая<span>650 ₽/м²</span></button>
+              <button type="button" class="opt" data-price="850" data-name="Сатиновое полотно" role="radio" aria-checked="false">Сатиновая<span>850 ₽/м²</span></button>
+              <button type="button" class="opt" data-price="950" data-name="Глянцевое полотно" role="radio" aria-checked="false">Глянцевая<span>950 ₽/м²</span></button>
+              <button type="button" class="opt" data-price="1450" data-name="Тканевое полотно" role="radio" aria-checked="false">Тканевая<span>1450 ₽/м²</span></button>
+            </div>
+          </div>
+
+          <div class="calc__field">
+            <span class="calc__field-head"><label>Цвет потолка</label></span>
+            <div class="calc__colors" id="colorOpts" role="radiogroup" aria-label="Цвет">
+              <button type="button" class="swatch is-active" style="--c:#ffffff" data-mult="1" data-name="Белый" role="radio" aria-checked="true" title="Белый"></button>
+              <button type="button" class="swatch" style="--c:#d8d1c4" data-mult="1.08" data-name="Айвори" role="radio" aria-checked="false" title="Айвори"></button>
+              <button type="button" class="swatch" style="--c:#b8a889" data-mult="1.1" data-name="Бежевый" role="radio" aria-checked="false" title="Бежевый"></button>
+              <button type="button" class="swatch" style="--c:#7f8284" data-mult="1.12" data-name="Серый" role="radio" aria-checked="false" title="Серый"></button>
+              <button type="button" class="swatch" style="--c:#30343a" data-mult="1.18" data-name="Графит" role="radio" aria-checked="false" title="Графит"></button>
+              <button type="button" class="swatch" style="--c:#101214" data-mult="1.22" data-name="Черный" role="radio" aria-checked="false" title="Черный"></button>
+            </div>
+          </div>
+
+          <div class="calc__field">
+            <span class="calc__field-head"><label>Дополнительно</label></span>
+            <div class="calc__extras" id="extraOpts">
+              <label class="check"><input type="checkbox" data-price="350" data-unit="точка" data-name="Точки света"><span class="check__box"></span><span>Точечные светильники</span><small>+350 ₽/шт</small></label>
+              <label class="check"><input type="checkbox" data-price="650" data-unit="м.п." data-name="Световые линии"><span class="check__box"></span><span>Световые линии</span><small>+650 ₽/м</small></label>
+              <label class="check"><input type="checkbox" data-price="650" data-unit="шт" data-name="Монтаж люстры"><span class="check__box"></span><span>Люстра</span><small>+650 ₽/шт</small></label>
+              <label class="check"><input type="checkbox" data-price="450" data-unit="м.п." data-name="Скрытый карниз"><span class="check__box"></span><span>Скрытый карниз</span><small>+450 ₽/м.п.</small></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc__visual">
+          <img src="assets/images/work-hall.jpg" alt="Гостиная с натяжным потолком и подсветкой">
+          <div class="calc__glass">
+            <span>Обычно монтаж занимает</span>
+            <b>1 день</b>
+          </div>
+        </div>
+
+        <aside class="calc__result" aria-live="polite">
+          <span class="calc__caption">Предварительная стоимость</span>
+          <div class="calc__total" id="total">21 600 ₽</div>
+          <div class="calc__per" id="perMeter">≈ 1 200 ₽/м²</div>
+          <ul class="calc__breakdown" id="breakdown"></ul>
+          <div class="calc__guarantees">
+            <div><svg class="icon"><use href="#i-check"></use></svg>Замер бесплатно</div>
+            <div><svg class="icon"><use href="#i-check"></use></svg>Смета фиксируется в договоре</div>
+            <div><svg class="icon"><use href="#i-check"></use></svg>Гарантия на полотно 5 лет</div>
+          </div>
+          <a href="#form" class="btn btn--primary btn--block">Зафиксировать цену замером</a>
+          <p class="calc__note">Финальная стоимость зависит от геометрии помещения и выбранного освещения.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section textures" id="textures">
+    <div class="container textures__grid">
+      <div class="textures__copy">
+        <span class="eyebrow">Фактуры и цвета</span>
+        <h2>Подберем покрытие под ваш интерьер</h2>
+        <p>Матовые полотна смотрятся как идеально окрашенный потолок, глянец добавляет высоты, сатин мягко отражает свет, а тканевые решения подходят для премиальных интерьеров.</p>
+        <div class="texture-tabs" aria-label="Популярные фактуры">
+          <button class="is-active" type="button">Матовые</button>
+          <button type="button">Глянцевые</button>
+          <button type="button">Сатин</button>
+          <button type="button">Тканевые</button>
+        </div>
+        <div class="palette" aria-label="Популярные цвета">
+          <span style="--c:#fff" title="Белый"></span>
+          <span style="--c:#e8e2d4" title="Айвори"></span>
+          <span style="--c:#d8c3a4" title="Бежевый"></span>
+          <span style="--c:#9c9c9a" title="Серый"></span>
+          <span style="--c:#40444a" title="Графит"></span>
+          <span style="--c:#101214" title="Черный"></span>
+        </div>
+        <a class="text-link" href="#form">Смотреть все цвета и фактуры</a>
+      </div>
+      <div class="textures__image">
+        <img src="assets/images/work-kitchen.jpg" alt="Образцы фактур и цветов для натяжных потолков">
+      </div>
+    </div>
+  </section>
+
+  <section class="section works" id="works">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Фото наших работ</span>
+        <h2>Реальные интерьеры с потолками LANDOS</h2>
+      </div>
+
+      <div class="gallery">
+        <figure class="gallery__item gallery__item--large">
+          <img src="assets/images/work-hall.jpg" alt="Гостиная с глянцевым натяжным потолком">
+          <figcaption>Гостиная <span>глянец и световой контур</span></figcaption>
+        </figure>
+        <figure class="gallery__item">
+          <img src="assets/images/work-kids.jpg" alt="Кухня-гостиная с точечным освещением">
+          <figcaption>Кухня <span>сатин и точечный свет</span></figcaption>
+        </figure>
+        <figure class="gallery__item">
+          <img src="assets/images/work-living.jpg" alt="Спальня с матовым потолком">
+          <figcaption>Спальня <span>матовое полотно</span></figcaption>
+        </figure>
+        <figure class="gallery__item gallery__item--wide">
+          <img src="assets/images/work-bathroom.jpg" alt="Комната со световыми линиями">
+          <figcaption>Световые линии <span>вечерний сценарий</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light" id="light">
+    <div class="container light__grid">
+      <div class="light__image">
+        <img src="assets/images/work-bathroom.jpg" alt="Освещение в натяжном потолке">
+      </div>
+      <div class="light__content">
+        <span class="eyebrow">Расчет света</span>
+        <h2>Свет, который работает вместе с потолком</h2>
+        <p>Считаем количество точек и мощность, подбираем световые линии, треки и люстры под сценарии комнаты.</p>
+
+        <div class="light__calc-card">
+          <div class="light__input">
+            <label>
+              <span>Площадь, м²</span>
+              <input type="number" id="lightArea" min="1" value="18">
+            </label>
+            <label>
+              <span>Комната</span>
+              <select id="lightRoom">
+                <option value="1.5">Спальня</option>
+                <option value="2.0">Гостиная</option>
+                <option value="2.0">Кухня</option>
+                <option value="1.2">Прихожая</option>
+                <option value="2.5">Детская</option>
+              </select>
+            </label>
+          </div>
+          <div class="light__result">
+            <div><span>Точечных светильников</span><b id="lightSpots">6 шт</b></div>
+            <div><span>Общая мощность</span><b id="lightPower">108 Вт</b></div>
+            <div><span>Световой поток</span><b id="lightLm">≈ 8 100 лм</b></div>
+          </div>
+        </div>
+
+        <div class="light__types">
+          <div><svg class="icon"><use href="#i-bulb"></use></svg><b>Точечные светильники</b></div>
+          <div><svg class="icon"><use href="#i-layers"></use></svg><b>Световые линии</b></div>
+          <div><svg class="icon"><use href="#i-ruler"></use></svg><b>Трековые системы</b></div>
+          <div><svg class="icon"><use href="#i-check"></use></svg><b>Люстры</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section timing" id="timing">
+    <div class="container timing__grid">
+      <div>
+        <span class="eyebrow">Сроки монтажа</span>
+        <h2>От заявки до готового потолка - обычно 3 дня</h2>
+        <div class="timeline">
+          <div class="timeline__item"><b>1</b><div><h3>Заявка</h3><p>Оставляете контакт, менеджер уточняет задачу и удобное время.</p></div></div>
+          <div class="timeline__item"><b>2</b><div><h3>Замер</h3><p>Приезжаем с образцами, считаем точную смету и фиксируем цену.</p></div></div>
+          <div class="timeline__item"><b>3</b><div><h3>Подготовка</h3><p>Производим полотно под размер и комплектуем свет.</p></div></div>
+          <div class="timeline__item"><b>4</b><div><h3>Монтаж</h3><p>Устанавливаем потолок, светильники и сдаем чистую комнату.</p></div></div>
+        </div>
+      </div>
+      <div class="timing__image">
+        <img src="assets/images/work-office.jpg" alt="Монтаж натяжного потолка мастерами LANDOS">
+      </div>
+    </div>
+  </section>
+
+  <section class="promo" id="promo">
+    <div class="container">
+      <div class="promo__band">
+        <div class="promo__discount">-25%</div>
+        <div>
+          <span class="eyebrow eyebrow--light">Акция месяца</span>
+          <h2>Скидка на световые линии при заказе потолка</h2>
+          <p>До конца месяца считаем проект освещения бесплатно и даем скидку на монтаж световых линий.</p>
+        </div>
+        <div class="promo__timer" id="promoTimer" aria-label="До конца акции">
+          <div><b id="tDays">00</b><span>дней</span></div>
+          <div><b id="tHours">00</b><span>часов</span></div>
+          <div><b id="tMins">00</b><span>минут</span></div>
+          <div><b id="tSecs">00</b><span>секунд</span></div>
+        </div>
+        <a class="btn btn--white" href="#form">Получить скидку</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section form-section" id="form">
+    <div class="container form-wrap">
+      <div class="form-info">
+        <span class="eyebrow">Заявка на замер</span>
+        <h2>Оставьте заявку на бесплатный замер</h2>
+        <p>Специалист приедет в удобное время, покажет образцы, сделает точные замеры и ответит на вопросы.</p>
+
+        <form class="form" id="leadForm" novalidate>
+          <div class="form__field">
+            <label for="name">Ваше имя</label>
+            <input type="text" id="name" name="name" placeholder="Иван" required minlength="2">
+            <span class="form__error" data-for="name">Укажите имя</span>
+          </div>
+          <div class="form__field">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+            <span class="form__error" data-for="phone">Укажите корректный телефон</span>
+          </div>
+          <label class="form__check">
+            <input type="checkbox" checked>
+            <span>Согласен на обработку персональных данных</span>
+          </label>
+          <button type="submit" class="btn btn--primary btn--lg">Отправить заявку</button>
+          <div class="form__success" id="formSuccess" hidden>
+            <b>Спасибо! Заявка принята.</b>
+            <span>Менеджер перезвонит в течение 15 минут.</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-photo">
+        <img src="assets/images/work-loft.jpg" alt="Замер натяжного потолка в квартире">
+        <div class="secure-note">
+          <svg class="icon"><use href="#i-shield"></use></svg>
+          <span>Ваши данные защищены и не передаются третьим лицам</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <a class="logo logo--light" href="#top">
+        <span class="logo__mark">L</span>
+        <span class="logo__text">LANDOS<small>натяжные потолки</small></span>
+      </a>
+      <p>Натяжные потолки под ключ с гарантией 5 лет. Производство, замер и монтаж без посредников.</p>
+    </div>
+    <div>
+      <h3>Навигация</h3>
+      <a href="#calc">Калькулятор</a>
+      <a href="#textures">Фактуры и цвета</a>
+      <a href="#works">Наши работы</a>
+      <a href="#light">Освещение</a>
+    </div>
+    <div>
+      <h3>Контакты</h3>
+      <a href="tel:+78005553535">8 800 555-35-35</a>
+      <a href="mailto:hello@landos.ru">hello@landos.ru</a>
+      <span>Ежедневно 8:00-22:00</span>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="container"><span>© <span id="year"></span> LANDOS. Все права защищены.</span><a href="#top">Наверх</a></div>
+  </div>
+</footer>
+
+<a href="tel:+78005553535" class="fab" aria-label="Позвонить">
+  <svg class="icon"><use href="#i-phone"></use></svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
