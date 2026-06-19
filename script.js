@@ -391,6 +391,73 @@
   tickTimer();
   if (timerEls.days) setInterval(tickTimer, 1000);
 
+  /* Personal promo code */
+  const promoFlip = $("#promoFlip");
+  const generatePromoButton = $("#generatePromoCode");
+  const promoCodeValue = $("#promoCodeValue");
+  const copyPromoButton = $("#copyPromoCode");
+  const promoToForm = $("#promoToForm");
+  const promoCopyStatus = $("#promoCopyStatus");
+
+  const generatePromoCode = () => {
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const randomValues = new Uint8Array(8);
+
+    if (window.crypto && window.crypto.getRandomValues) {
+      window.crypto.getRandomValues(randomValues);
+    } else {
+      randomValues.forEach((_, index) => {
+        randomValues[index] = Math.floor(Math.random() * 256);
+      });
+    }
+
+    const randomPart = Array.from(randomValues, (value) => alphabet[value % alphabet.length]).join("");
+    return `LANDOS-25-${randomPart.slice(0, 4)}-${randomPart.slice(4)}`;
+  };
+
+  if (promoFlip && generatePromoButton && promoCodeValue) {
+    const frontFace = $(".promo__face--front", promoFlip);
+    const backFace = $(".promo__face--back", promoFlip);
+
+    generatePromoButton.addEventListener("click", () => {
+      promoCodeValue.textContent = generatePromoCode();
+      promoCopyStatus.textContent = "";
+      promoFlip.classList.add("is-flipped");
+      frontFace.setAttribute("aria-hidden", "true");
+      backFace.setAttribute("aria-hidden", "false");
+      generatePromoButton.tabIndex = -1;
+      copyPromoButton.tabIndex = 0;
+      promoToForm.tabIndex = 0;
+      window.setTimeout(() => copyPromoButton.focus(), 700);
+    });
+
+    copyPromoButton.addEventListener("click", async () => {
+      const code = promoCodeValue.textContent;
+      const promoInput = $("#promoCode");
+      let copied = false;
+
+      try {
+        await navigator.clipboard.writeText(code);
+        copied = true;
+      } catch (error) {
+        const temporaryInput = document.createElement("textarea");
+        temporaryInput.value = code;
+        temporaryInput.setAttribute("readonly", "");
+        temporaryInput.style.position = "fixed";
+        temporaryInput.style.opacity = "0";
+        document.body.appendChild(temporaryInput);
+        temporaryInput.select();
+        copied = document.execCommand("copy");
+        temporaryInput.remove();
+      }
+
+      if (promoInput) promoInput.value = code;
+      promoCopyStatus.textContent = copied
+        ? "Промокод скопирован"
+        : "Промокод добавлен в заявку";
+    });
+  }
+
   /* Lead form */
   const form = $("#leadForm");
 
@@ -402,6 +469,9 @@
     const contactButtons = $$(".contact-methods button", form);
     const contactError = $('.form__error[data-for="contact"]', form);
     const success = $("#formSuccess");
+    const promoInput = $("#promoCode");
+    const consentInput = $("#consent");
+    const consentField = $("#consentField");
     const savedContacts = {};
     let currentMethod = "phone";
 
@@ -498,6 +568,16 @@
 
     nameInput.addEventListener("input", () => setError(nameInput, false));
 
+    if (promoInput) {
+      promoInput.addEventListener("input", () => {
+        promoInput.value = promoInput.value.toUpperCase().replace(/\s+/g, "");
+      });
+    }
+
+    consentInput.addEventListener("change", () => {
+      consentField.classList.toggle("has-error", !consentInput.checked);
+    });
+
     const isContactValid = () => {
       const value = contactInput.value.trim();
       if (["phone", "whatsapp"].includes(currentMethod)) return value.replace(/\D/g, "").length === 11;
@@ -520,19 +600,25 @@
         valid = false;
       }
 
+      if (!consentInput.checked) {
+        consentField.classList.add("has-error");
+        valid = false;
+      }
+
       if (!valid) return;
 
       form.querySelectorAll("input,button").forEach((element) => {
         element.disabled = true;
       });
       success.hidden = false;
+      form.classList.add("is-success");
       success.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
 
   /* Scroll reveal */
   const revealEls = $$(
-    ".feature, .section__head, .calc, .textures__copy, .textures__image, .gallery__item, .light__image, .light__content, .timeline__item, .timing__image, .promo__band, .form-wrap"
+    ".feature, .section__head, .calc, .textures__copy, .textures__image, .gallery__item, .light__image, .light__content, .timeline__item, .timing__image, .promo__flip, .form-wrap"
   );
 
   revealEls.forEach((el) => el.classList.add("reveal"));

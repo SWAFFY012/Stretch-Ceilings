@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231765d8'/%3E%3Ctext x='50' y='65' font-size='46' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -21,6 +21,7 @@
   <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v5l3 2"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6l8-3Zm-3 9 2 2 4-5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h10v10H9zM5 15H4V5h10v1"/></symbol>
 </svg>
 
 <header class="header" id="top">
@@ -339,20 +340,43 @@
 
   <section class="promo" id="promo">
     <div class="container">
-      <div class="promo__band">
-        <div class="promo__discount">-25%</div>
-        <div>
-          <span class="eyebrow eyebrow--light">Акция месяца</span>
-          <h2>Скидка на световые линии при заказе потолка</h2>
-          <p>До конца месяца считаем проект освещения бесплатно и даем скидку на монтаж световых линий.</p>
+      <div class="promo__flip" id="promoFlip">
+        <div class="promo__flip-inner">
+          <div class="promo__band promo__face promo__face--front">
+            <div class="promo__discount">-25%</div>
+            <div>
+              <span class="eyebrow eyebrow--light">Акция месяца</span>
+              <h2>Скидка на световые линии при заказе потолка</h2>
+              <p>До конца месяца считаем проект освещения бесплатно и даем скидку на монтаж световых линий.</p>
+            </div>
+            <div class="promo__timer" id="promoTimer" aria-label="До конца акции">
+              <div><b id="tDays">00</b><span>дней</span></div>
+              <div><b id="tHours">00</b><span>часов</span></div>
+              <div><b id="tMins">00</b><span>минут</span></div>
+              <div><b id="tSecs">00</b><span>секунд</span></div>
+            </div>
+            <button class="btn btn--white" type="button" id="generatePromoCode">Получить персональный промокод</button>
+          </div>
+
+          <div class="promo__band promo__face promo__face--back" aria-hidden="true">
+            <div class="promo__brand" aria-hidden="true">L</div>
+            <div>
+              <span class="eyebrow eyebrow--light">Только для вас</span>
+              <h2>Персональный промокод LANDOS</h2>
+              <p>Укажите его в заявке, чтобы менеджер закрепил скидку на световые линии.</p>
+            </div>
+            <div class="promo__code-box">
+              <span class="promo__code-label">Ваш промокод</span>
+              <strong class="promo__code" id="promoCodeValue" aria-live="polite">LANDOS-25-XXXX-XXXX</strong>
+              <button class="promo__copy" type="button" id="copyPromoCode" tabindex="-1">
+                <svg class="icon"><use href="#i-copy"></use></svg>
+                <span>Скопировать промокод</span>
+              </button>
+              <span class="promo__copy-status" id="promoCopyStatus" aria-live="polite"></span>
+            </div>
+            <a class="btn btn--white" href="#form" id="promoToForm" tabindex="-1">Перейти к заявке</a>
+          </div>
         </div>
-        <div class="promo__timer" id="promoTimer" aria-label="До конца акции">
-          <div><b id="tDays">00</b><span>дней</span></div>
-          <div><b id="tHours">00</b><span>часов</span></div>
-          <div><b id="tMins">00</b><span>минут</span></div>
-          <div><b id="tSecs">00</b><span>секунд</span></div>
-        </div>
-        <a class="btn btn--white" href="#form">Получить скидку</a>
       </div>
     </div>
   </section>
@@ -382,14 +406,22 @@
             <input type="tel" id="contact" name="contact" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
             <span class="form__error" data-for="contact">Укажите корректный телефон</span>
           </div>
-          <label class="form__check">
-            <input type="checkbox" checked>
-            <span>Согласен на обработку персональных данных</span>
-          </label>
+          <div class="form__field form__field--promo">
+            <label for="promoCode">Промокод <span>(необязательно)</span></label>
+            <input type="text" id="promoCode" name="promo_code" placeholder="LANDOS-25-X7K9-Q4MP" autocomplete="off" maxlength="22">
+          </div>
+          <div class="form__consent" id="consentField">
+            <label class="form__check" for="consent">
+              <input type="checkbox" id="consent" name="consent" required>
+              <span>Согласен на обработку персональных данных</span>
+            </label>
+            <span class="form__error" data-for="consent">Пожалуйста, согласитесь на обработку персональных данных</span>
+          </div>
           <button type="submit" class="btn btn--primary btn--lg">Отправить заявку</button>
           <div class="form__success" id="formSuccess" hidden>
-            <b>Спасибо! Заявка принята.</b>
-            <span>Менеджер свяжется с вами в течение 15 минут.</span>
+            <span class="form__success-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"></use></svg></span>
+            <b>Спасибо, заявка принята.</b>
+            <span>Менеджер свяжется с вами уже скоро.</span>
           </div>
         </form>
       </div>
@@ -437,6 +469,6 @@
   <svg class="icon"><use href="#i-phone"></use></svg>
 </a>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>
