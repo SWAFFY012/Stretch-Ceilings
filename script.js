@@ -7,6 +7,121 @@
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const money = (value) => Math.round(value).toLocaleString("ru-RU") + " ₽";
 
+  /* Replace native system dropdowns with branded, accessible menus. */
+  const enhancedSelects = [];
+
+  function enhanceSelect(select) {
+    if (!select || select.dataset.enhanced === "true") return;
+
+    const wrapper = document.createElement("div");
+    const trigger = document.createElement("button");
+    const menu = document.createElement("div");
+    const menuId = (select.id || "select") + "-menu";
+    const label = select.getAttribute("aria-label") || "Выберите вариант";
+
+    wrapper.className = "custom-select";
+    trigger.className = "custom-select__trigger";
+    trigger.type = "button";
+    trigger.setAttribute("aria-haspopup", "listbox");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-controls", menuId);
+    trigger.setAttribute("aria-label", label);
+    menu.className = "custom-select__menu";
+    menu.id = menuId;
+    menu.setAttribute("role", "listbox");
+    menu.hidden = true;
+
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.append(select, trigger, menu);
+    select.classList.add("custom-select__native");
+    select.dataset.enhanced = "true";
+    select.tabIndex = -1;
+    select.setAttribute("aria-hidden", "true");
+
+    const optionButtons = Array.from(select.options).map((option, index) => {
+      const button = document.createElement("button");
+      button.className = "custom-select__option";
+      button.type = "button";
+      button.textContent = option.textContent;
+      button.dataset.index = String(index);
+      button.setAttribute("role", "option");
+      menu.appendChild(button);
+      return button;
+    });
+
+    const sync = () => {
+      trigger.textContent = select.options[select.selectedIndex]?.textContent || label;
+      optionButtons.forEach((button, index) => {
+        button.setAttribute("aria-selected", String(index === select.selectedIndex));
+      });
+    };
+
+    const close = (returnFocus = false) => {
+      menu.hidden = true;
+      wrapper.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      if (returnFocus) trigger.focus();
+    };
+
+    const open = () => {
+      enhancedSelects.forEach((item) => item.close());
+      menu.hidden = false;
+      wrapper.classList.add("is-open");
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    trigger.addEventListener("click", () => {
+      if (menu.hidden) open();
+      else close();
+    });
+
+    trigger.addEventListener("keydown", (event) => {
+      if (["ArrowDown", "ArrowUp", "Enter", " "].includes(event.key)) {
+        event.preventDefault();
+        open();
+        optionButtons[select.selectedIndex]?.focus();
+      }
+      if (event.key === "Escape") close();
+    });
+
+    optionButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        select.selectedIndex = index;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        sync();
+        close(true);
+      });
+    });
+
+    menu.addEventListener("keydown", (event) => {
+      const activeIndex = optionButtons.indexOf(document.activeElement);
+      let nextIndex = activeIndex;
+
+      if (event.key === "ArrowDown") nextIndex = Math.min(optionButtons.length - 1, activeIndex + 1);
+      else if (event.key === "ArrowUp") nextIndex = Math.max(0, activeIndex - 1);
+      else if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = optionButtons.length - 1;
+      else if (event.key === "Escape") {
+        event.preventDefault();
+        close(true);
+        return;
+      } else return;
+
+      event.preventDefault();
+      optionButtons[nextIndex]?.focus();
+    });
+
+    select.addEventListener("change", sync);
+    document.addEventListener("click", (event) => {
+      if (!wrapper.contains(event.target)) close();
+    });
+
+    enhancedSelects.push({ close });
+    sync();
+  }
+
+  $$('select').forEach(enhanceSelect);
+
   /* Mobile menu */
   const burger = $("#burger");
   const mobileNav = $("#mobileNav");
@@ -280,31 +395,116 @@
   const form = $("#leadForm");
 
   if (form) {
-    const phoneInput = $("#phone");
     const nameInput = $("#name");
+    const contactInput = $("#contact");
+    const contactMethod = $("#contactMethod");
+    const contactLabel = $("#contactLabel");
+    const contactButtons = $$(".contact-methods button", form);
+    const contactError = $('.form__error[data-for="contact"]', form);
     const success = $("#formSuccess");
+    const savedContacts = {};
+    let currentMethod = "phone";
 
-    phoneInput.addEventListener("input", (event) => {
-      let digits = event.target.value.replace(/\D/g, "");
-      if (digits.startsWith("8")) digits = "7" + digits.slice(1);
-      if (!digits.startsWith("7")) digits = "7" + digits;
-      digits = digits.slice(0, 11);
-
-      let value = "+7";
-      if (digits.length > 1) value += " (" + digits.slice(1, 4);
-      if (digits.length >= 4) value += ") " + digits.slice(4, 7);
-      if (digits.length >= 7) value += "-" + digits.slice(7, 9);
-      if (digits.length >= 9) value += "-" + digits.slice(9, 11);
-      event.target.value = value;
-    });
+    const methodConfig = {
+      phone: {
+        label: "Телефон",
+        placeholder: "+7 (___) ___-__-__",
+        type: "tel",
+        autocomplete: "tel",
+        error: "Укажите корректный телефон",
+      },
+      telegram: {
+        label: "Ник в Telegram",
+        placeholder: "@username",
+        type: "text",
+        autocomplete: "off",
+        error: "Укажите Telegram в формате @username",
+      },
+      whatsapp: {
+        label: "Номер WhatsApp",
+        placeholder: "+7 (___) ___-__-__",
+        type: "tel",
+        autocomplete: "tel",
+        error: "Укажите номер WhatsApp",
+      },
+      email: {
+        label: "E-mail",
+        placeholder: "name@example.ru",
+        type: "email",
+        autocomplete: "email",
+        error: "Укажите корректный e-mail",
+      },
+    };
 
     const setError = (field, hasError) => {
       field.closest(".form__field").classList.toggle("has-error", hasError);
       field.classList.toggle("invalid", hasError);
     };
 
+    const formatPhone = (value) => {
+      let digits = value.replace(/\D/g, "");
+      if (digits.startsWith("8")) digits = "7" + digits.slice(1);
+      if (!digits.startsWith("7")) digits = "7" + digits;
+      digits = digits.slice(0, 11);
+
+      let formatted = "+7";
+      if (digits.length > 1) formatted += " (" + digits.slice(1, 4);
+      if (digits.length >= 4) formatted += ") " + digits.slice(4, 7);
+      if (digits.length >= 7) formatted += "-" + digits.slice(7, 9);
+      if (digits.length >= 9) formatted += "-" + digits.slice(9, 11);
+      return formatted;
+    };
+
+    const selectContactMethod = (method) => {
+      const config = methodConfig[method];
+      if (!config) return;
+
+      savedContacts[currentMethod] = contactInput.value;
+      currentMethod = method;
+      contactMethod.value = method;
+      contactLabel.textContent = config.label;
+      contactInput.type = config.type;
+      contactInput.placeholder = config.placeholder;
+      contactInput.autocomplete = config.autocomplete;
+      contactInput.value = savedContacts[method] || "";
+      contactError.textContent = config.error;
+      setError(contactInput, false);
+
+      contactButtons.forEach((button) => {
+        const active = button.dataset.method === method;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-checked", String(active));
+      });
+    };
+
+    contactButtons.forEach((button, index) => {
+      button.addEventListener("click", () => selectContactMethod(button.dataset.method));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+        event.preventDefault();
+        const direction = ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1;
+        const nextIndex = (index + direction + contactButtons.length) % contactButtons.length;
+        contactButtons[nextIndex].focus();
+        contactButtons[nextIndex].click();
+      });
+    });
+
+    contactInput.addEventListener("input", (event) => {
+      if (["phone", "whatsapp"].includes(currentMethod)) {
+        event.target.value = formatPhone(event.target.value);
+      }
+      setError(contactInput, false);
+    });
+
     nameInput.addEventListener("input", () => setError(nameInput, false));
-    phoneInput.addEventListener("input", () => setError(phoneInput, false));
+
+    const isContactValid = () => {
+      const value = contactInput.value.trim();
+      if (["phone", "whatsapp"].includes(currentMethod)) return value.replace(/\D/g, "").length === 11;
+      if (currentMethod === "telegram") return /^@?[A-Za-z0-9_]{5,32}$/.test(value);
+      if (currentMethod === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+      return false;
+    };
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -315,8 +515,8 @@
         valid = false;
       }
 
-      if (phoneInput.value.replace(/\D/g, "").length < 11) {
-        setError(phoneInput, true);
+      if (!isContactValid()) {
+        setError(contactInput, true);
         valid = false;
       }
 
