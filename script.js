@@ -122,27 +122,6 @@
 
   $$('select').forEach(enhanceSelect);
 
-  /* Layered gradient blur inspired by architectural portfolio cards. */
-  $$(".media-card").forEach((card) => {
-    if (card.querySelector(".media-blur")) return;
-
-    const blur = document.createElement("span");
-    blur.className = "media-blur";
-    blur.setAttribute("aria-hidden", "true");
-
-    for (let index = 1; index <= 10; index += 1) {
-      const layer = document.createElement("i");
-      layer.className = "media-blur__layer";
-      layer.style.setProperty("--blur", index * 1.15 + "px");
-      layer.style.setProperty("--start", (index - 1) * 10 + "%");
-      layer.style.setProperty("--end", index * 10 + "%");
-      blur.appendChild(layer);
-    }
-
-    const caption = card.querySelector(".media-caption");
-    card.insertBefore(blur, caption || null);
-  });
-
   /* Mobile menu */
   const burger = $("#burger");
   const mobileNav = $("#mobileNav");
