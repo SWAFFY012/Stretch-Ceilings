@@ -156,33 +156,6 @@ ul {
   width: 100%;
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  color: var(--blue);
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-}
-
-.eyebrow--light {
-  color: #dceaff;
-}
-
-.eyebrow--light::before {
-  background: #fff;
-}
-
 .section {
   padding: 86px 0;
 }
