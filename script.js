@@ -642,6 +642,15 @@
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
+  const backToTop = $("#backToTop");
+  if (backToTop) {
+    backToTop.addEventListener("click", (event) => {
+      event.preventDefault();
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, left: 0, behavior: reducedMotion ? "auto" : "smooth" });
+    });
+  }
+
   const header = $(".header");
   window.addEventListener("scroll", () => {
     if (!header) return;
