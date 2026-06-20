@@ -1126,10 +1126,6 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 650;
 }
 
-.gallery__item:not(.gallery__item--large) .media-caption strong {
-  font-size: 18px;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .media-caption {
     opacity: 0;
@@ -1149,37 +1145,71 @@ input[type="range"]::-moz-range-thumb {
 
 /* Works */
 .works {
+  overflow: hidden;
   background: #fff;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: 235px;
-  gap: 14px;
+.works .section__head {
+  margin-bottom: 38px;
 }
 
-.gallery__item {
-  position: relative;
+.works-marquee {
+  display: grid;
+  gap: 16px;
+  width: 100%;
   overflow: hidden;
-  border-radius: var(--radius);
+  padding: 3px 0;
+}
+
+.works-marquee__row {
+  width: 100%;
+  overflow: hidden;
+}
+
+.works-marquee__track,
+.works-marquee__group {
+  display: flex;
+  width: max-content;
+}
+
+.works-marquee__track {
+  will-change: transform;
+}
+
+.works-marquee__group {
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.works-marquee__card {
+  position: relative;
+  flex: 0 0 240px;
+  width: 240px;
+  height: 155px;
+  overflow: hidden;
+  border-radius: 16px;
   background: #dce3ee;
   box-shadow: var(--shadow-sm);
 }
 
-.gallery__item--large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.gallery__item--wide {
-  grid-column: span 2;
-}
-
-.gallery__item img {
+.works-marquee__card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.works-marquee__card .media-caption {
+  min-height: 74%;
+  padding: 42px 14px 12px;
+}
+
+.works-marquee__card .media-caption strong {
+  font-size: 16px;
+}
+
+.works-marquee__card .media-caption span {
+  margin-top: 4px;
+  font-size: 11px;
 }
 
 /* Lighting */
@@ -1937,10 +1967,6 @@ input[type="range"]::-moz-range-thumb {
     grid-template-columns: 1fr;
   }
 
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .light__image img,
   .timing__image img,
   .form-photo,
@@ -2019,8 +2045,7 @@ input[type="range"]::-moz-range-thumb {
   .calc,
   .calc__options,
   .calc__extras,
-  .gallery,
-  .light__input,
+    .light__input,
   .light__result,
   .light__types,
   .footer__inner {
@@ -2053,14 +2078,17 @@ input[type="range"]::-moz-range-thumb {
     height: 280px;
   }
 
-  .gallery {
-    grid-auto-rows: 240px;
+  .works .section__head {
+    margin-bottom: 28px;
   }
 
-  .gallery__item--large,
-  .gallery__item--wide {
-    grid-column: auto;
-    grid-row: auto;
+  .works-marquee,
+  .works-marquee__group {
+    gap: 12px;
+  }
+
+  .works-marquee__group {
+    padding-right: 12px;
   }
 
   .promo {

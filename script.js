@@ -616,9 +616,72 @@
     });
   }
 
+  /* Scroll-linked works marquee */
+  const worksMarquee = $("#worksMarquee");
+
+  if (worksMarquee) {
+    const tracks = $$('[data-marquee-row]', worksMarquee);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let sectionTop = 0;
+    let groupWidths = [];
+    let frameRequested = false;
+
+    tracks.forEach((track) => {
+      const group = $(".works-marquee__group", track);
+      if (!group) return;
+
+      for (let copy = 0; copy < 2; copy += 1) {
+        const clone = group.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        $$("img", clone).forEach((image) => {
+          image.alt = "";
+          image.loading = "lazy";
+        });
+        track.appendChild(clone);
+      }
+    });
+
+    const measureMarquee = () => {
+      sectionTop = window.scrollY + worksMarquee.getBoundingClientRect().top;
+      groupWidths = tracks.map((track) => $(".works-marquee__group", track)?.offsetWidth || 0);
+    };
+
+    const updateMarquee = () => {
+      const offset = reducedMotion.matches
+        ? 200
+        : (window.scrollY - sectionTop + window.innerHeight) * 0.3;
+      const movement = offset - 200;
+
+      tracks.forEach((track, index) => {
+        const direction = index === 0 ? 1 : -1;
+        const translateX = -groupWidths[index] + movement * direction;
+        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+      });
+
+      frameRequested = false;
+    };
+
+    const requestMarqueeUpdate = () => {
+      if (frameRequested) return;
+      frameRequested = true;
+      window.requestAnimationFrame(updateMarquee);
+    };
+
+    const refreshMarquee = () => {
+      measureMarquee();
+      requestMarqueeUpdate();
+    };
+
+    refreshMarquee();
+    window.addEventListener("load", refreshMarquee, { once: true });
+    window.addEventListener("scroll", requestMarqueeUpdate, { passive: true });
+    window.addEventListener("resize", refreshMarquee);
+    reducedMotion.addEventListener?.("change", requestMarqueeUpdate);
+  }
+
   /* Scroll reveal */
   const revealEls = $$(
-    ".feature, .section__head, .calc, .textures__copy, .textures__image, .gallery__item, .light__image, .light__content, .timeline__item, .timing__image, .promo__flip, .form-wrap"
+    ".feature, .section__head, .calc, .textures__copy, .textures__image, .works-marquee, .light__image, .light__content, .timeline__item, .timing__image, .promo__flip, .form-wrap"
   );
 
   revealEls.forEach((el) => el.classList.add("reveal"));
