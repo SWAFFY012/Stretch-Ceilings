@@ -151,6 +151,11 @@
   const quickTotal = $("#quickTotal");
   const quickHint = $("#quickHint");
   const quickApply = $("#quickApply");
+  const calcVisualCurrent = $("#calcVisualCurrent");
+  const calcVisualNext = $("#calcVisualNext");
+  let visualSwapToken = 0;
+  let visualSwapInProgress = false;
+  let queuedVisual = null;
 
   const state = {
     area: area ? Number(area.value) : 18,
@@ -168,6 +173,56 @@
     const value = Number(area.value);
     const pct = ((value - min) / (max - min)) * 100;
     area.style.setProperty("--p", pct + "%");
+  }
+
+  function setCeilingVisual(src, colorName) {
+    if (!src || !calcVisualCurrent || !calcVisualNext) return;
+
+    if (visualSwapInProgress) {
+      queuedVisual = { src, colorName };
+      return;
+    }
+
+    if (calcVisualCurrent.getAttribute("src") === src) return;
+
+    const token = ++visualSwapToken;
+    const image = new Image();
+
+    image.addEventListener("load", () => {
+      if (token !== visualSwapToken) return;
+      calcVisualNext.src = src;
+      calcVisualNext.dataset.alt = `Гостиная, цвет потолка: ${colorName.toLowerCase()}`;
+      visualSwapInProgress = true;
+      window.requestAnimationFrame(() => calcVisualNext.classList.add("is-visible"));
+    }, { once: true });
+
+    image.src = src;
+  }
+
+  if (calcVisualNext && calcVisualCurrent) {
+    calcVisualNext.addEventListener("transitionend", (event) => {
+      if (event.propertyName !== "opacity" || !calcVisualNext.classList.contains("is-visible")) return;
+
+      calcVisualCurrent.src = calcVisualNext.src;
+      calcVisualCurrent.alt = calcVisualNext.dataset.alt || calcVisualCurrent.alt;
+      calcVisualNext.classList.add("is-resetting");
+      calcVisualNext.classList.remove("is-visible");
+      void calcVisualNext.offsetWidth;
+      window.requestAnimationFrame(() => {
+        calcVisualNext.classList.remove("is-resetting");
+        visualSwapInProgress = false;
+        if (queuedVisual) {
+          const nextVisual = queuedVisual;
+          queuedVisual = null;
+          setCeilingVisual(nextVisual.src, nextVisual.colorName);
+        }
+      });
+    });
+
+    $$("#colorOpts .swatch").forEach((button) => {
+      const image = new Image();
+      image.src = button.dataset.image;
+    });
   }
 
   function readExtras() {
@@ -279,6 +334,7 @@
         });
         state.colorMult = Number(button.dataset.mult);
         state.colorName = button.dataset.name;
+        setCeilingVisual(button.dataset.image, button.dataset.name);
         recalc();
       });
     });

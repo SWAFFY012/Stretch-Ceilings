@@ -161,12 +161,12 @@
           <div class="calc__field">
             <span class="calc__field-head"><label>Цвет потолка</label></span>
             <div class="calc__colors" id="colorOpts" role="radiogroup" aria-label="Цвет">
-              <button type="button" class="swatch is-active" style="--c:#ffffff" data-mult="1" data-name="Белый" role="radio" aria-checked="true" title="Белый"></button>
-              <button type="button" class="swatch" style="--c:#d8d1c4" data-mult="1.08" data-name="Айвори" role="radio" aria-checked="false" title="Айвори"></button>
-              <button type="button" class="swatch" style="--c:#b8a889" data-mult="1.1" data-name="Бежевый" role="radio" aria-checked="false" title="Бежевый"></button>
-              <button type="button" class="swatch" style="--c:#7f8284" data-mult="1.12" data-name="Серый" role="radio" aria-checked="false" title="Серый"></button>
-              <button type="button" class="swatch" style="--c:#30343a" data-mult="1.18" data-name="Графит" role="radio" aria-checked="false" title="Графит"></button>
-              <button type="button" class="swatch" style="--c:#101214" data-mult="1.22" data-name="Черный" role="radio" aria-checked="false" title="Черный"></button>
+              <button type="button" class="swatch is-active" style="--c:#ffffff" data-mult="1" data-name="Белый" data-image="assets/images/calculator-ceilings/white.jpg" role="radio" aria-checked="true" title="Белый"></button>
+              <button type="button" class="swatch" style="--c:#d8d1c4" data-mult="1.08" data-name="Айвори" data-image="assets/images/calculator-ceilings/ivory.jpg" role="radio" aria-checked="false" title="Айвори"></button>
+              <button type="button" class="swatch" style="--c:#b8a889" data-mult="1.1" data-name="Бежевый" data-image="assets/images/calculator-ceilings/beige.jpg" role="radio" aria-checked="false" title="Бежевый"></button>
+              <button type="button" class="swatch" style="--c:#7f8284" data-mult="1.12" data-name="Серый" data-image="assets/images/calculator-ceilings/gray.jpg" role="radio" aria-checked="false" title="Серый"></button>
+              <button type="button" class="swatch" style="--c:#30343a" data-mult="1.18" data-name="Графит" data-image="assets/images/calculator-ceilings/graphite.jpg" role="radio" aria-checked="false" title="Графит"></button>
+              <button type="button" class="swatch" style="--c:#101214" data-mult="1.22" data-name="Черный" data-image="assets/images/calculator-ceilings/black.jpg" role="radio" aria-checked="false" title="Черный"></button>
             </div>
           </div>
 
@@ -182,7 +182,10 @@
         </div>
 
         <div class="calc__visual media-card">
-          <img src="assets/images/work-hall.jpg" alt="Гостиная с натяжным потолком и подсветкой">
+          <div class="calc__visual-images">
+            <img class="calc__visual-image calc__visual-image--current" id="calcVisualCurrent" src="assets/images/calculator-ceilings/white.jpg" alt="Гостиная с белым натяжным потолком">
+            <img class="calc__visual-image calc__visual-image--next" id="calcVisualNext" src="assets/images/calculator-ceilings/white.jpg" alt="" aria-hidden="true">
+          </div>
           <div class="media-caption">
             <strong>Монтаж за 1 день</strong>
             <span>аккуратно и без пыли</span>
@@ -513,6 +516,6 @@
   <svg class="icon"><use href="#i-phone"></use></svg>
 </a>
 
-<script src="script.js?v=7"></script>
+<script src="script.js?v=8"></script>
 </body>
 </html>
